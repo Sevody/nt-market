@@ -1,0 +1,11 @@
+version: "3"
+services:
+  app:
+    env_file:
+      - .development.env
+    container_name: awesome_nest_boilerplate
+    restart: always
+    build: .
+    ports:
+      - "$PORT:$PORT"
+
