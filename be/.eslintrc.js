@@ -8,7 +8,7 @@ module.exports = {
     },
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
-        'project': path.resolve(__dirname, './tsconfig.json'),
+        'project': path.resolve(__dirname, './tsconfig.eslint.json'),
         'sourceType': 'module',
     },
     extends: [
@@ -40,7 +40,6 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }],
         '@typescript-eslint/adjacent-overload-signatures': 'error',
         '@typescript-eslint/array-type': 'error',
-        '@typescript-eslint/ban-types': 'error',
         '@typescript-eslint/explicit-member-accessibility': [
             'off',
             {
@@ -91,9 +90,18 @@ module.exports = {
             'error',
             'always',
         ],
+        '@typescript-eslint/no-unsafe-return': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/naming-convention': [
             'error',
-            { selector: 'default', format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'] },
+            {
+                selector: 'default', format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'], 'filter': {
+                    'regex': '^_.*$',
+                    'match': false,
+                },
+            },
             {
                 selector: 'variable',
                 format: ['camelCase', 'UPPER_CASE'],
@@ -133,16 +141,29 @@ module.exports = {
                 ],
             },
         ],
-
-        // ORIGINAL tslint.json -> 'interface-name': false,
+        '@typescript-eslint/ban-types': ['error', {
+            'types': {
+                'String': {
+                    'message': 'Use string instead',
+                    'fixWith': 'string',
+                },
+                '{}': {
+                    'message': 'Use Record<K, V> instead',
+                    'fixWith': 'Record<K, V>',
+                },
+                'object': {
+                    'message': 'Use Record<K, V> instead',
+                    'fixWith': 'Record<K, V>',
+                },
+            },
+        }],
         '@typescript-eslint/interface-name-prefix': 'off',
 
-        // ORIGINAL tslint.json -> 'no-console': [true, 'debug', 'info', 'time', 'timeEnd', 'trace'],
         'no-restricted-syntax': [
             'error',
             {
                 selector:
-                    'CallExpression[callee.object.name=\'console\'][callee.property.name=/^(debug|info|time|timeEnd|trace)$/]',
+                    'CallExpression[callee.object.name=\'console\'][callee.property.name=/^(debug|log|time|timeEnd|trace)$/]',
                 message: 'Unexpected property on console object was called',
             },
         ],
@@ -185,35 +206,6 @@ module.exports = {
         'no-bitwise': 'error',
         'no-caller': 'error',
         'no-cond-assign': 'error',
-        'no-console': [
-            'error',
-            {
-                'allow': [
-                    'info',
-                    'dirxml',
-                    'warn',
-                    'error',
-                    'dir',
-                    'timeLog',
-                    'assert',
-                    'clear',
-                    'count',
-                    'countReset',
-                    'group',
-                    'groupCollapsed',
-                    'groupEnd',
-                    'table',
-                    'Console',
-                    'markTimeline',
-                    'profile',
-                    'profileEnd',
-                    'timeline',
-                    'timelineEnd',
-                    'timeStamp',
-                    'context',
-                ],
-            },
-        ],
         'no-debugger': 'error',
         'no-duplicate-case': 'error',
         'no-duplicate-imports': 'error',
@@ -354,7 +346,7 @@ module.exports = {
                     ],
                     'no-accessor-recursion': true,
                     'no-collapsible-if': true,
-                    'no-implicit-dependencies': true,
+                    'no-implicit-dependencies': [true, 'dev'],
                     'no-multi-spaces': true,
                     'no-reference-import': true,
                     'no-return-undefined': [

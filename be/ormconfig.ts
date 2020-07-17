@@ -1,6 +1,8 @@
-import * as dotenv from 'dotenv';
-import { SnakeNamingStrategy } from './src/snake-naming.strategy';
 import './src/boilerplate.polyfill';
+
+import * as dotenv from 'dotenv';
+
+import { SnakeNamingStrategy } from './src/snake-naming.strategy';
 
 if (!(<any>module).hot /* for webpack HMR */) {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -17,16 +19,12 @@ for (const envName of Object.keys(process.env)) {
 
 module.exports = {
     type: 'mysql',
-    host: process.env.MYSQL_HOST,
-    port: +process.env.MYSQL_PORT,
-    username: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
+    host: process.env.DB_HOST,
+    port: +process.env.DB_PORT,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     namingStrategy: new SnakeNamingStrategy(),
-    entities: [
-        'src/modules/**/*.entity{.ts,.js}',
-    ],
-    migrations: [
-        'src/migrations/*{.ts,.js}',
-    ],
+    entities: ['src/modules/**/*.entity{.ts,.js}'],
+    migrations: ['src/migrations/*{.ts,.js}'],
 };

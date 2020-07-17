@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ApiBody } from '@nestjs/swagger';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 export const ApiFile = (
     fileName = 'file',
-    options: Partial<{ required: boolean; isArray: boolean }> = {},
+    options: Partial<{ isRequired: boolean; isArray: boolean }> = {},
 ): MethodDecorator => (
     target: any,
     propertyKey: string,
     descriptor: PropertyDescriptor,
 ) => {
-    const { required = false, isArray = false } = options;
+    const { isRequired = false, isArray = false } = options;
     let fileSchema: SchemaObject = {
         type: 'string',
         format: 'binary',
@@ -21,9 +22,8 @@ export const ApiFile = (
             items: fileSchema,
         };
     }
-    ApiBody({
-        required,
-        type: 'multipart/form-data',
+    return ApiBody({
+        required: isRequired,
         schema: {
             type: 'object',
             properties: {
