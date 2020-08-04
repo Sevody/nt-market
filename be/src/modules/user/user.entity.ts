@@ -2,29 +2,33 @@ import { Column, Entity } from 'typeorm';
 
 import { AbstractEntity } from '../../common/abstract.entity';
 import { RoleType } from '../../common/constants/role-type';
+import { StatusType } from '../../common/constants/status-type';
 import { UserDto } from './dto/UserDto';
 
 @Entity({ name: 'users' })
 export class UserEntity extends AbstractEntity<UserDto> {
-    @Column({ nullable: true })
-    firstName: string;
-
-    @Column({ nullable: true })
-    lastName: string;
+    @Column({ type: 'enum', enum: StatusType, default: StatusType.ENABLE })
+    status: StatusType;
 
     @Column({ type: 'enum', enum: RoleType, default: RoleType.USER })
     role: RoleType;
 
     @Column({ unique: true, nullable: true })
-    email: string;
+    username: string;
+
+    @Column()
+    realName: string;
 
     @Column({ nullable: true })
     password: string;
 
     @Column({ nullable: true })
-    phone: string;
+    mobile: string;
 
-    @Column({ nullable: true })
+    @Column()
+    email: string;
+
+    @Column()
     avatar: string;
 
     dtoClass = UserDto;

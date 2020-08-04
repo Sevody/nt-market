@@ -2,9 +2,7 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-
 const { REACT_APP_ENV } = process.env;
-
 export default defineConfig({
   hash: true,
   antd: {},
@@ -13,16 +11,16 @@ export default defineConfig({
   },
   layout: {
     name: 'Ant Design Pro',
-    locale: true,
+    locale: false,
     siderWidth: 208,
   },
-  locale: {
-    // default zh-CN
-    default: 'zh-CN',
-    // default true, when it is true, will use `navigator.language` overwrite default
-    antd: true,
-    baseNavigator: true,
-  },
+  // locale: {
+  //   // default zh-CN
+  //   default: 'zh-CN',
+  //   // default true, when it is true, will use `navigator.language` overwrite default
+  //   antd: true,
+  //   baseNavigator: true,
+  // },
   dynamicImport: {
     loading: '@/components/PageLoading/index',
   },
@@ -38,41 +36,44 @@ export default defineConfig({
         {
           name: 'login',
           path: '/user/login',
-          component: './user/login',
+          component: './User/Login',
         },
       ],
-    },
-
-    {
-      path: '/welcome',
-      name: 'welcome',
-      icon: 'smile',
-      component: './Welcome',
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      icon: 'crown',
-      access: 'canAdmin',
-      component: './Admin',
-      routes: [
-        {
-          path: '/admin/sub-page',
-          name: 'sub-page',
-          icon: 'smile',
-          component: './Welcome',
-        },
-      ],
-    },
-    {
-      name: 'list.table-list',
-      icon: 'table',
-      path: '/list',
-      component: './ListTableList',
     },
     {
       path: '/',
-      redirect: '/welcome',
+      redirect: '/dashboard/workplace',
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      icon: 'smile',
+      routes: [
+        {
+          name: '工作台',
+          path: '/dashboard/workplace',
+          component: './Dashboard/Workplace',
+        },
+      ],
+    },
+    {
+      name: '获客',
+      icon: 'smile',
+      path: '/customer',
+      routes: [
+        {
+          name: '受众管理',
+          icon: 'smile',
+          path: '/customer/customer-list',
+          component: './Customer/CustomerList',
+        },
+        {
+          name: '来源管理',
+          icon: 'smile',
+          path: '/customer/source',
+          component: './Customer/Source',
+        },
+      ],
     },
     {
       component: './404',

@@ -17,6 +17,7 @@ import {
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './filters/bad-request.filter';
 import { QueryFailedFilter } from './filters/query-failed.filter';
+import { TransformInterceptor } from './interceptors/transform.interceptor';
 import { ConfigService } from './shared/services/config.service';
 import { SharedModule } from './shared/shared.module';
 import { setupSwagger } from './viveo-swagger';
@@ -48,17 +49,25 @@ async function bootstrap() {
     );
 
     app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
+    app.useGlobalInterceptors(new TransformInterceptor());
 
     app.useGlobalPipes(
         new ValidationPipe({
-            whitelist: true,
             transform: true,
-            dismissDefaultMessages: true,
-            validationError: {
-                target: false,
-            },
         }),
     );
+
+    // PRD setting
+    // app.useGlobalPipes(
+    //     new ValidationPipe({
+    //         whitelist: true,
+    //         transform: true,
+    //         dismissDefaultMessages: true,
+    //         validationError: {
+    //             target: false,
+    //         },
+    //     }),
+    // );
 
     const configService = app.select(SharedModule).get(ConfigService);
 

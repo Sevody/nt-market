@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { contextMiddleware } from './middlewares';
 import { AuthModule } from './modules/auth/auth.module';
 import { MathModule } from './modules/math/math.module';
+import { SourceModule } from './modules/source/source.module';
 import { UserModule } from './modules/user/user.module';
 import { ConfigService } from './shared/services/config.service';
 import { SharedModule } from './shared/shared.module';
@@ -14,6 +15,7 @@ import { SharedModule } from './shared/shared.module';
     imports: [
         AuthModule,
         UserModule,
+        SourceModule,
         MathModule,
         TypeOrmModule.forRootAsync({
             imports: [SharedModule],

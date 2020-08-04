@@ -1,22 +1,36 @@
 declare namespace API {
-  export interface CurrentUser {
-    avatar?: string;
-    name?: string;
-    title?: string;
-    group?: string;
-    signature?: string;
-    tags?: {
-      key: string;
-      label: string;
-    }[];
-    userid?: string;
-    access?: 'user' | 'guest' | 'admin';
-    unreadCount?: number;
+  export interface AbstractRO {
+    code: number,
+    msg: string,
   }
 
-  export interface LoginStateType {
-    status?: 'ok' | 'error';
-    type?: string;
+  export interface PageRO {
+    success: boolean,
+    total: number,
+    data: any,
+  }
+
+  export interface User {
+    id: string;
+    role: 'USER' | 'ADMIN',
+    username: string,
+    createdAt: string,
+    updatedAt: string,
+    realName?: string,
+    mobile?: string,
+    email?: string,
+    avatar?: string,
+  }
+
+  export interface CurrentUser extends AbstractRO {
+    data: User,
+  }
+
+  export interface LoginStateType extends AbstractRO {
+    data: {
+      token: string,
+      user: User,
+    } | null
   }
 
   export interface NoticeIconData {

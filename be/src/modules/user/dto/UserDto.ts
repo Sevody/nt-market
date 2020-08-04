@@ -7,17 +7,17 @@ import { AbstractDto } from '../../../common/dto/AbstractDto';
 import { UserEntity } from '../user.entity';
 
 export class UserDto extends AbstractDto {
-    @ApiPropertyOptional()
-    firstName: string;
-
-    @ApiPropertyOptional()
-    lastName: string;
+    @ApiPropertyOptional({ enum: RoleType })
+    role: RoleType;
 
     @ApiPropertyOptional()
     username: string;
 
-    @ApiPropertyOptional({ enum: RoleType })
-    role: RoleType;
+    @ApiPropertyOptional()
+    realName: string;
+
+    @ApiPropertyOptional()
+    mobile: string;
 
     @ApiPropertyOptional()
     email: string;
@@ -25,16 +25,13 @@ export class UserDto extends AbstractDto {
     @ApiPropertyOptional()
     avatar: string;
 
-    @ApiPropertyOptional()
-    phone: string;
-
     constructor(user: UserEntity) {
         super(user);
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
+        this.username = user.username;
+        this.realName = user.realName;
         this.role = user.role;
         this.email = user.email;
         this.avatar = user.avatar;
-        this.phone = user.phone;
+        this.mobile = user.mobile;
     }
 }

@@ -1,26 +1,10 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-    IsEnum,
-    IsInt,
-    IsNotEmpty,
-    IsOptional,
-    IsString,
-    Max,
-    Min,
-} from 'class-validator';
+import { IsInt, IsOptional, Max, Min } from 'class-validator';
 
-import { Order } from '../constants/order';
+import { AbstractSearchDto } from './AbstractSearchDto';
 
-export class PageOptionsDto {
-    @ApiPropertyOptional({
-        enum: Order,
-        default: Order.ASC,
-    })
-    @IsEnum(Order)
-    @IsOptional()
-    readonly order: Order = Order.ASC;
-
+export class PageOptionsDto<T> extends AbstractSearchDto<T> {
     @ApiPropertyOptional({
         minimum: 1,
         default: 1,
@@ -29,7 +13,7 @@ export class PageOptionsDto {
     @IsInt()
     @Min(1)
     @IsOptional()
-    readonly page: number = 1;
+    readonly current: number = 1;
 
     @ApiPropertyOptional({
         minimum: 1,
@@ -41,15 +25,9 @@ export class PageOptionsDto {
     @Min(10)
     @Max(50)
     @IsOptional()
-    readonly take: number = 10;
+    readonly pageSize: number = 10;
 
     get skip(): number {
-        return (this.page - 1) * this.take;
+        return (this.current - 1) * this.pageSize;
     }
-
-    @ApiPropertyOptional()
-    @IsString()
-    @IsNotEmpty()
-    @IsOptional()
-    readonly q?: string;
 }

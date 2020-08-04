@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { FindConditions } from 'typeorm';
 
-import { PageMetaDto } from '../../common/dto/PageMetaDto';
-import { FileNotImageException } from '../../exceptions/file-not-image.exception';
-import { IFile } from '../../interfaces/IFile';
+// import { FileNotImageException } from '../../exceptions/file-not-image.exception';
+// import { IFile } from '../../interfaces/IFile';
 import { AwsS3Service } from '../../shared/services/aws-s3.service';
 import { ValidatorService } from '../../shared/services/validator.service';
 import { UserRegisterDto } from '../auth/dto/UserRegisterDto';
@@ -45,35 +44,40 @@ export class UserService {
         return queryBuilder.getOne();
     }
 
-    async createUser(
-        userRegisterDto: UserRegisterDto,
-        file: IFile,
-    ): Promise<UserEntity> {
-        let avatar: string;
-        if (file && !this.validatorService.isImage(file.mimetype)) {
-            throw new FileNotImageException();
-        }
-
-        if (file) {
-            avatar = await this.awsS3Service.uploadImage(file);
-        }
-
-        const user = this.userRepository.create({ ...userRegisterDto, avatar });
-
+    async createUser(userRegisterDto: UserRegisterDto): Promise<UserEntity> {
+        const user = this.userRepository.create({ ...userRegisterDto });
         return this.userRepository.save(user);
     }
+
+    // 头像上传
+    // async createUser(
+    //     userRegisterDto: UserRegisterDto,
+    //     file: IFile,
+    // ): Promise<UserEntity> {
+    //     let avatar: string;
+    //     if (file && !this.validatorService.isImage(file.mimetype)) {
+    //         throw new FileNotImageException();
+    //     }
+
+    //     if (file) {
+    //         avatar = await this.awsS3Service.uploadImage(file);
+    //     }
+
+    //     const user = this.userRepository.create({ ...userRegisterDto, avatar });
+
+    //     return this.userRepository.save(user);
+    // }
 
     async getUsers(pageOptionsDto: UsersPageOptionsDto): Promise<UsersPageDto> {
         const queryBuilder = this.userRepository.createQueryBuilder('user');
         const [users, usersCount] = await queryBuilder
             .skip(pageOptionsDto.skip)
-            .take(pageOptionsDto.take)
+            .take(pageOptionsDto.pageSize)
             .getManyAndCount();
 
-        const pageMetaDto = new PageMetaDto({
+        return new UsersPageDto(users.toDtos(), {
             pageOptionsDto,
-            itemCount: usersCount,
+            total: usersCount,
         });
-        return new UsersPageDto(users.toDtos(), pageMetaDto);
     }
 }

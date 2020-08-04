@@ -1,9 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { PageMetaDto } from '../../../common/dto/PageMetaDto';
+import {
+    IPageMetaDtoParameters,
+    PageMetaDto,
+} from '../../../common/dto/PageMetaDto';
 import { UserDto } from './UserDto';
 
-export class UsersPageDto {
+export class UsersPageDto extends PageMetaDto {
     @ApiProperty({
         type: UserDto,
         isArray: true,
@@ -13,8 +16,8 @@ export class UsersPageDto {
     @ApiProperty()
     readonly meta: PageMetaDto;
 
-    constructor(data: UserDto[], meta: PageMetaDto) {
+    constructor(data: UserDto[], meta: IPageMetaDtoParameters) {
+        super(meta);
         this.data = data;
-        this.meta = meta;
     }
 }

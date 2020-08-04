@@ -1,8 +1,5 @@
-'use strict';
-
 import { ApiProperty } from '@nestjs/swagger';
 import {
-    IsEmail,
     IsNotEmpty,
     IsOptional,
     IsPhoneNumber,
@@ -15,18 +12,7 @@ export class UserRegisterDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
-    readonly firstName: string;
-
-    @IsString()
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly lastName: string;
-
-    @IsString()
-    @IsEmail()
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly email: string;
+    readonly username: string;
 
     @IsString()
     @MinLength(6)
@@ -34,8 +20,8 @@ export class UserRegisterDto {
     readonly password: string;
 
     @Column()
-    @IsPhoneNumber('ZZ')
+    @IsPhoneNumber('CN')
     @IsOptional()
     @ApiProperty()
-    phone: string;
+    mobile: string;
 }

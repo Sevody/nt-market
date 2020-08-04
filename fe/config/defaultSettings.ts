@@ -10,9 +10,9 @@ export default {
   fixSiderbar: true,
   colorWeak: false,
   menu: {
-    locale: true,
+    locale: false,
   },
-  title: 'Ant Design Pro',
+  title: 'Neftim Marketing',
   pwa: false,
   iconfontUrl: '',
 } as LayoutSettings & {
