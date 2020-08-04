@@ -1,8 +1,9 @@
 {
-  "name": "ant-design-pro",
-  "version": "5.0.0-alpha.0",
+  "name": "nt-market-fe",
+  "version": "0.0.1",
   "private": true,
-  "description": "An out-of-box UI solution for enterprise applications",
+  "description": "Management System for Marketing Automation",
+  "author": "Sevody <sevody@gmail.com>",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "umi build",

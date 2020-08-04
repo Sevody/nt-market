@@ -1,9 +1,8 @@
 {
-    "name": "marketing-automation",
+    "name": "nt-market-be",
     "version": "0.0.1",
     "description": "Management System for Marketing Automation",
     "author": "Sevody <sevody@gmail.com>",
-    "license": "MIT",
     "scripts": {
         "build": "tsc -p tsconfig.build.json",
         "format": "prettier --write \"src/**/*.ts\"",
