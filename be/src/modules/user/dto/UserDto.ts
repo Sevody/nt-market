@@ -1,5 +1,3 @@
-'use strict';
-
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 import { RoleType } from '../../../common/constants/role-type';

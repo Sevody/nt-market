@@ -1,5 +1,3 @@
-'use strict';
-
 export enum SourceType {
     MANUAL = 'MANUAL',
     SPIDER = 'SPIDER',

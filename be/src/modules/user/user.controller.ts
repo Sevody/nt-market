@@ -1,5 +1,3 @@
-'use strict';
-
 import {
     Controller,
     Get,
@@ -18,7 +16,6 @@ import { Roles } from '../../decorators/roles.decorator';
 import { AuthGuard } from '../../guards/auth.guard';
 import { RolesGuard } from '../../guards/roles.guard';
 import { AuthUserInterceptor } from '../../interceptors/auth-user-interceptor.service';
-// import { UserDto } from './dto/UserDto';
 import { UsersPageDto } from './dto/UsersPageDto';
 import { UsersPageOptionsDto } from './dto/UsersPageOptionsDto';
 import { UserEntity } from './user.entity';
@@ -33,7 +30,7 @@ export class UserController {
     constructor(private _userService: UserService) {}
 
     @Get('admin')
-    @Roles(RoleType.USER)
+    @Roles(RoleType.ADMIN)
     @HttpCode(HttpStatus.OK)
     admin(@AuthUser() user: UserEntity): string {
         return 'only for you admin: ' + user.username;
@@ -57,14 +54,5 @@ export class UserController {
     @Get('currentUser')
     getCurrentUser(@AuthUser() user: UserEntity): any {
         return user.toDto();
-        // return {
-        //     name: 'シルティー2',
-        //     avatar:
-        //         'https://phantom-1256176746.cos.ap-chengdu.myqcloud.com/shiruthii.jpeg',
-        //     userid: '00000001',
-        //     email: 'shiruthii@waafuri.com',
-        //     access: 'user',
-        //     phone: '0752-268888888',
-        // };
     }
 }

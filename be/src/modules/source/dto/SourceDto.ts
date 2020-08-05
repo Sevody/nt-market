@@ -1,5 +1,3 @@
-'use strict';
-
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 import { SourceType } from '../../../common/constants/source-type';
