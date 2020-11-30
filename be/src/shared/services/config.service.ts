@@ -1,6 +1,8 @@
+import { HttpModuleOptions } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 
+import { IRabbitmqConnectionOption } from '../../amqp/rabbitmq.options';
 import { IAwsConfig } from '../../interfaces/IAwsConfig';
 import { SnakeNamingStrategy } from '../../snake-naming.strategy';
 import { UserSubscriber } from '../entity-subscribers/user-subscriber';
@@ -28,6 +30,20 @@ export class ConfigService {
 
     get nodeEnv(): string {
         return this.get('NODE_ENV') || 'development';
+    }
+
+    get ntChannelConfig(): HttpModuleOptions {
+        return {
+            baseURL: `${this.get('NT_CHANNEL_URL')}:${this.get(
+                'NT_CHANNEL_PORT',
+            )}`,
+        };
+    }
+
+    get amqpConfig(): IRabbitmqConnectionOption {
+        return {
+            urls: [this.get('AMQP_URL')],
+        };
     }
 
     get typeOrmConfig(): TypeOrmModuleOptions {

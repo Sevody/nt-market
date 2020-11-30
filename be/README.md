@@ -16,7 +16,7 @@ cd my-new-project
 # 3. Install dependencies. (Make sure yarn is installed: https://yarnpkg.com/lang/en/docs/install)
 yarn
 
-# 4. Run development server and open http://localhost:3003
+# 4. Run development server and open http://localhost:7000
 yarn start:dev
 
 # 5. Read the documentation linked below for "Setup and development".
@@ -44,7 +44,7 @@ yarn start:dev
   <dd>development, staging and production environment configurations</dd>
 
   <dt><b>Swagger Api Documentation</b></dt>
-  <dd>Already integrated API documentation. To see all available endpoints visit http://localhost:3003/documentation</dd>
+  <dd>Already integrated API documentation. To see all available endpoints visit http://localhost:7000/documentation</dd>
 
   <dt><b>Linter</b></dt>  
   <dd>eslint + prettier = ❤️</dd>
