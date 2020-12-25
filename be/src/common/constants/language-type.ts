@@ -1,4 +1,4 @@
 export enum LanguageType {
-    ZH_CH = 'zh-cn',
-    JA_JP = 'ja-jp',
+    ZH_CH = 'zh-CN',
+    JA_JP = 'ja-JP',
 }
