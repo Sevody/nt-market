@@ -47,7 +47,10 @@ export class ConfigService {
     }
 
     get typeOrmConfig(): TypeOrmModuleOptions {
-        let entities = [__dirname + '/../../modules/**/*.entity{.ts,.js}'];
+        let entities = [
+            __dirname + '/../../modules/**/*.entity{.ts,.js}',
+            __dirname + '/../../external/**/*.entity{.ts,.js}',
+        ];
         let migrations = [__dirname + '/../../migrations/*{.ts,.js}'];
 
         if ((<any>module).hot) {
@@ -86,6 +89,7 @@ export class ConfigService {
             migrationsRun: true,
             logging: this.nodeEnv === 'development',
             namingStrategy: new SnakeNamingStrategy(),
+            // synchronize: true,
         };
     }
 

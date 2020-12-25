@@ -1,22 +1,18 @@
-import { HttpService, Injectable, Logger } from '@nestjs/common';
-// import { Cron, Interval } from '@nestjs/schedule';
-import { AxiosResponse } from 'axios';
+import { Injectable, Logger } from '@nestjs/common';
 
-import { RabbitmqConnection } from '../amqp';
-import {
-    MQ_EXCHANGE_NAME,
-    MQ_EXCHANGE_TYPE,
-    MQ_ROUTINGKEY_LINE,
-} from '../common/constants/mq';
-import { ConfigService } from '../shared/services/config.service';
+// import {
+//     Cron,
+//     Interval,
+// } from '@nestjs/schedule';
+import { MessageService } from './message.service';
+import { RSSJobsService } from './rss-jobs.service';
 
 @Injectable()
 export class TasksService {
     private readonly _logger = new Logger(TasksService.name);
     constructor(
-        private readonly _httpService: HttpService,
-        private readonly _configService: ConfigService,
-        private readonly _amqpConnection: RabbitmqConnection,
+        private readonly _messageService: MessageService,
+        private readonly _rssJobsService: RSSJobsService,
     ) {}
 
     // @Cron('5 * * * * *')
@@ -38,38 +34,10 @@ export class TasksService {
     }
 
     private async _sendLineMessage() {
-        const data = {
-            id: 'Ue8f9ec4ba839d107fafb5f2417eeab10',
-            content: `send form nt-market at ${+new Date()}`,
-        };
-        await this.sendMessageByAMQP(data);
-    }
-
-    async sendMessageByHttp(
-        message: Record<string, any>,
-    ): Promise<AxiosResponse> {
-        const options = this._configService.ntChannelConfig;
-        const response = await this._httpService
-            .post('/rssbot/send', message, options)
-            .toPromise();
-        this._logger.log(
-            `send message ${JSON.stringify(message)} by http success`,
+        const data = await this._rssJobsService.getRSSSendLine();
+        const jobs = data.map((item) =>
+            this._messageService.sendMessageByAMQP(item),
         );
-        return response;
-    }
-
-    async sendMessageByAMQP(
-        message: Record<string, any> | string,
-    ): Promise<void> {
-        await this._amqpConnection.publish(
-            {
-                name: MQ_EXCHANGE_NAME,
-                type: MQ_EXCHANGE_TYPE,
-            },
-            MQ_ROUTINGKEY_LINE,
-            {
-                data: message,
-            },
-        );
+        await Promise.all(jobs);
     }
 }

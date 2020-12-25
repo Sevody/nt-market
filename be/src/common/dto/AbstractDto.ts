@@ -1,7 +1,7 @@
 import { AbstractEntity } from '../abstract.entity';
 
 export class AbstractDto {
-    id: string;
+    id: number;
     createdAt: Date;
     updatedAt: Date;
 
