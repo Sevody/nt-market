@@ -41,6 +41,7 @@
         "@nestjs/swagger": "^4.5.7",
         "@nestjs/testing": "^7.2.0",
         "@nestjs/typeorm": "^7.0.0",
+        "@types/amqp-connection-manager": "^2.0.10",
         "amqp-connection-manager": "^3.2.1",
         "amqplib": "^0.6.0",
         "aws-sdk": "~2.683.0",
@@ -73,9 +74,9 @@
         "uuid": "^8.1.0"
     },
     "devDependencies": {
+        "@nestjs/testing": "^7.0.8",
         "@types/amqplib": "^0.5.16",
         "@types/axios": "^0.14.0",
-        "@nestjs/testing": "^7.0.8",
         "@types/bcrypt": "^3.0.0",
         "@types/compression": "^1.7.0",
         "@types/dotenv": "^6.1.1",

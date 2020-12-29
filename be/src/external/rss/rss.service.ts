@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 
-import { RSSChannelAddDto } from './dto/RSSChannelAddDto';
-import { RSSChannelsPageDto } from './dto/RSSChannelsPageDto';
-import { RSSChannelsPageOptionsDto } from './dto/RSSChannelsPageOptionsDto';
-import { RSSItemsPageDto } from './dto/RSSItemsPageDto';
-import { RSSItemsPageOptionsDto } from './dto/RSSItemsPageOptionsDto';
-import { RSSSourcesPageDto } from './dto/RSSSourcesPageDto';
-import { RSSSourcesPageOptionsDto } from './dto/RSSSourcesPageOptionsDto';
-import { RSSChannelEntity } from './rss-channel.entity';
-import { RSSChannelRepository } from './rss-channel.repository';
-import { RSSItemRepository } from './rss-item.repository';
-import { RSSSourceRepository } from './rss-source.repository';
+import { RSSChannelAddDto } from './channel/dto/RSSChannelAddDto';
+import { RSSChannelsPageDto } from './channel/dto/RSSChannelsPageDto';
+import { RSSChannelsPageOptionsDto } from './channel/dto/RSSChannelsPageOptionsDto';
+import { RSSChannelEntity } from './channel/rss-channel.entity';
+import { RSSChannelRepository } from './channel/rss-channel.repository';
+import { RSSItemsPageDto } from './item/dto/RSSItemsPageDto';
+import { RSSItemsPageOptionsDto } from './item/dto/RSSItemsPageOptionsDto';
+import { RSSItemRepository } from './item/rss-item.repository';
+import { RSSSourceAddDto } from './source/dto/RSSSourceAddDto';
+import { RSSSourcesPageDto } from './source/dto/RSSSourcesPageDto';
+import { RSSSourcesPageOptionsDto } from './source/dto/RSSSourcesPageOptionsDto';
+import { RSSSourceEntity } from './source/rss-source.entity';
+import { RSSSourceRepository } from './source/rss-source.repository';
 
 @Injectable()
 export class RSSService {
@@ -30,12 +32,12 @@ export class RSSService {
             .skip(pageOptionsDto.skip)
             .take(pageOptionsDto.pageSize)
             .where('1 = 1');
-        const { name, type, sorter } = pageOptionsDto;
+        const { name, topic, sorter } = pageOptionsDto;
         if (name) {
             qb.andWhere('rss_source.name LIKE :name', { name: `%${name}%` });
         }
-        if (type) {
-            qb.andWhere('rss_source.type = :type', { type });
+        if (topic) {
+            qb.andWhere('rss_source.topic = :topic', { topic });
         }
         if (sorter && Object.keys(sorter).length > 0) {
             const firstSorter = Object.entries(sorter)[0];
@@ -47,6 +49,17 @@ export class RSSService {
             pageOptionsDto,
             total: rssSourcesCount,
         });
+    }
+
+    async addRSSChannelBunch(
+        rssSourceAddBunchDto: RSSSourceAddDto[],
+    ): Promise<RSSSourceEntity[]> {
+        const newSources = rssSourceAddBunchDto.map((item) =>
+            this.rssSourceRepository.create({
+                ...item,
+            }),
+        );
+        return this.rssSourceRepository.save(newSources);
     }
 
     async getRSSChannels(

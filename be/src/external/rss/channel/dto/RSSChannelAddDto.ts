@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-import { LanguageType } from '../../../common/constants/language-type';
+import { LanguageType } from '../../../../common/constants/language-type';
 
 export class RSSChannelAddDto {
     @IsNumber()

@@ -43,10 +43,10 @@ export function rabbitmqConnectionFactory(
                 setTimeout(() => {
                     if (!hasConnect) {
                         reject(
-                            'Rabbitmq not connect in 5 seconds. Please Check your connection options',
+                            `Rabbitmq not connect in ${connectionOptions.connectTimeoutInSeconds} seconds. Please Check your connection options`,
                         );
                     }
-                }, 5000);
+                }, connectionOptions.connectTimeoutInSeconds * 1000);
             }),
         inject: [RabbitmqConnection],
     };
@@ -85,10 +85,10 @@ export function rabbitmqConnectionAsyncFactory(
                     if (!hasConnect) {
                         clearInterval(mqIntercal);
                         reject(
-                            'Rabbitmq not connect in 5 seconds. Please Check your connection options',
+                            `Rabbitmq not connect in ${connectionOptions.connectTimeoutInSeconds} seconds. Please Check your connection options`,
                         );
                     }
-                }, 5000);
+                }, connectionOptions.connectTimeoutInSeconds * 1000);
             }),
         inject: [RabbitmqConnection, getRabbitmqConnectionOptionsToken(name)],
     };

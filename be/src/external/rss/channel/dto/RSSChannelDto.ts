@@ -1,7 +1,7 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-import { LanguageType } from '../../../common/constants/language-type';
-import { AbstractDto } from '../../../common/dto/AbstractDto';
+import { LanguageType } from '../../../../common/constants/language-type';
+import { AbstractDto } from '../../../../common/dto/AbstractDto';
 import { RSSChannelEntity } from '../rss-channel.entity';
 
 export class RSSChannelDto extends AbstractDto {

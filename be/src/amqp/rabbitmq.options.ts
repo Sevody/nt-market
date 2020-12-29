@@ -6,6 +6,7 @@ import { Options } from 'amqplib';
 export interface IRabbitmqConnectionOption {
     name?: string;
     urls: string[];
+    connectTimeoutInSeconds: number;
     options?: AmqpConnectionManagerOptions;
 }
 

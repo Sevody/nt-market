@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
     IPageMetaDtoParameters,
     PageMetaDto,
-} from '../../../common/dto/PageMetaDto';
+} from '../../../../common/dto/PageMetaDto';
 import { RSSChannelDto } from './RSSChannelDto';
 
 export class RSSChannelsPageDto extends PageMetaDto {

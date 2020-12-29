@@ -1,4 +1,4 @@
-import { AbstractDto } from '../../../common/dto/AbstractDto';
+import { AbstractDto } from '../../../../common/dto/AbstractDto';
 import { RSSItemEntity } from '../rss-item.entity';
 
 export class RSSItemDto extends AbstractDto {

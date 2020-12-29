@@ -10,15 +10,15 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { RSSChannelAddDto } from './dto/RSSChannelAddDto';
-import { RSSChannelDto } from './dto/RSSChannelDto';
-import { RSSChannelsPageDto } from './dto/RSSChannelsPageDto';
-import { RSSChannelsPageOptionsDto } from './dto/RSSChannelsPageOptionsDto';
-import { RSSItemsPageDto } from './dto/RSSItemsPageDto';
-import { RSSItemsPageOptionsDto } from './dto/RSSItemsPageOptionsDto';
-import { RSSSourcesPageDto } from './dto/RSSSourcesPageDto';
-import { RSSSourcesPageOptionsDto } from './dto/RSSSourcesPageOptionsDto';
+import { RSSChannelAddDto } from './channel/dto/RSSChannelAddDto';
+import { RSSChannelDto } from './channel/dto/RSSChannelDto';
+import { RSSChannelsPageDto } from './channel/dto/RSSChannelsPageDto';
+import { RSSChannelsPageOptionsDto } from './channel/dto/RSSChannelsPageOptionsDto';
+import { RSSItemsPageDto } from './item/dto/RSSItemsPageDto';
+import { RSSItemsPageOptionsDto } from './item/dto/RSSItemsPageOptionsDto';
 import { RSSService } from './rss.service';
+import { RSSSourcesPageDto } from './source/dto/RSSSourcesPageDto';
+import { RSSSourcesPageOptionsDto } from './source/dto/RSSSourcesPageOptionsDto';
 
 @Controller('rss')
 @ApiTags('rss')

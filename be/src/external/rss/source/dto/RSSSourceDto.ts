@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-import { AbstractDto } from '../../../common/dto/AbstractDto';
+import { AbstractDto } from '../../../../common/dto/AbstractDto';
 import { RSSSourceEntity } from '../rss-source.entity';
 
 export class RSSSourceDto extends AbstractDto {
@@ -8,11 +8,11 @@ export class RSSSourceDto extends AbstractDto {
     name: string;
 
     @ApiPropertyOptional()
-    type: string;
+    topic: string;
 
     constructor(rssSource: RSSSourceEntity) {
         super(rssSource);
         this.name = rssSource.name;
-        this.type = rssSource.type;
+        this.topic = rssSource.topic;
     }
 }

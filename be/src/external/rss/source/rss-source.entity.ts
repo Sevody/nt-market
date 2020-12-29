@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 
-import { AbstractEntity } from '../../common/abstract.entity';
+import { AbstractEntity } from '../../../common/abstract.entity';
 import { RSSSourceDto } from './dto/RSSSourceDto';
 
 @Entity({ name: 'rss_sources' })
@@ -9,7 +9,7 @@ export class RSSSourceEntity extends AbstractEntity<RSSSourceDto> {
     name: string;
 
     @Column()
-    type: string;
+    topic: string;
 
     dtoClass = RSSSourceDto;
 }

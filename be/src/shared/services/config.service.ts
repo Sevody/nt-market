@@ -43,6 +43,9 @@ export class ConfigService {
     get amqpConfig(): IRabbitmqConnectionOption {
         return {
             urls: [this.get('AMQP_URL')],
+            connectTimeoutInSeconds: Number(
+                this.get('AMQP_CONNECT_TIMEOUT_IN_SECONDS'),
+            ),
         };
     }
 

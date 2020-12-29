@@ -1173,6 +1173,21 @@
   resolved "https://registry.npm.taobao.org/@tokenizer/token/download/@tokenizer/token-0.1.1.tgz#f0d92c12f87079ddfd1b29f614758b9696bc29e3"
   integrity sha1-8NksEvhwed39Gyn2FHWLlpa8KeM=
 
+"@types/amqp-connection-manager@^2.0.10":
+  version "2.0.10"
+  resolved "https://npm-private-toolkit.fangdd.net/@types%2famqp-connection-manager/-/amqp-connection-manager-2.0.10.tgz#9b78e8334c1ddd483ae50aa7dd5d01cc2c4d255a"
+  integrity sha1-m3joM0wd3Ug65Qqn3V0BzCxNJVo=
+  dependencies:
+    "@types/amqplib" "*"
+
+"@types/amqplib@*":
+  version "0.5.17"
+  resolved "https://npm-private-toolkit.fangdd.net/@types%2famqplib/-/amqplib-0.5.17.tgz#1211f5e01b62006e8a380af258d147de0b3b22e0"
+  integrity sha1-EhH14BtiAG6KOAryWNFH3gs7IuA=
+  dependencies:
+    "@types/bluebird" "*"
+    "@types/node" "*"
+
 "@types/amqplib@^0.5.16":
   version "0.5.16"
   resolved "https://registry.npm.taobao.org/@types/amqplib/download/@types/amqplib-0.5.16.tgz#8297c53a1aa0455ea2ac51f923613e886a513ef0"
