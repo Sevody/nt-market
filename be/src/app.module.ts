@@ -18,6 +18,7 @@ import { TasksModule } from './tasks/tasks.module';
 
 @Module({
     imports: [
+        /* 通用模块相关 start */
         TypeOrmModule.forRootAsync({
             imports: [SharedModule],
             useFactory: (configService: ConfigService) =>
@@ -30,13 +31,18 @@ import { TasksModule } from './tasks/tasks.module';
             inject: [ConfigService],
         }),
         ScheduleModule.forRoot(),
+        /* 通用模块相关 end */
+        /* 任务调度相关 start */
         RSSModule,
         ChannelModule,
         TasksModule,
+        /* 任务调度相关 end */
+        /* 后台管理相关  start */
         AuthModule,
         UserModule,
         SourceModule,
         MathModule,
+        /* 后台管理相关  end */
     ],
 })
 export class AppModule implements NestModule {
